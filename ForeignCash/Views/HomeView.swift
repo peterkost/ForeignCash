@@ -21,8 +21,8 @@ struct HomeView: View {
                 
                 Section(header: Text("Recent Transactions")) {
                     List {
-                        ForEach(transactions.items[0...4]) { transaction in
-                            Text("\(transaction.amount)")
+                        ForEach(transactions.items) { transaction in
+                            Text("\(transaction.forexAmount)")
                         }
                     }
                 }

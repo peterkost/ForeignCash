@@ -14,9 +14,6 @@ struct TransactionsListView: View {
     var body: some View {
         NavigationView {
             List {
-                Button("Add Stuff") {
-                    transactions.addTransaction(title: "Test", descirption: "TestDesc", amount: 123, type: "Add")
-                }
                 ForEach(transactions.items) { transaction in
                     HStack {
                         VStack(alignment: .leading) {
@@ -25,7 +22,10 @@ struct TransactionsListView: View {
                             Text(transaction.type)
                         }
                         Spacer()
-                        Text("$\(transaction.amount)")
+                        VStack {
+                            Text("\(transaction.forexAmount)₽")
+                            Text("$\(transaction.homeAmount)")
+                        }
                     }
                 }
                 .onDelete(perform: removeItems)

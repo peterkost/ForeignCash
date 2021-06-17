@@ -13,10 +13,9 @@ struct Transaction: Identifiable, Codable {
     
     var title: String
     var description: String
-    var amount: Double
-    var type: String 
-
-
+    var type: String
+    var forexAmount: Double
+    var homeAmount: Double
 }
 
 
@@ -35,10 +34,13 @@ class Transactions: ObservableObject {
     var forexTotal: Double {
         var count: Double = 0
         for item in items {
-            count += item.amount
+            count += item.forexAmount
         }
         return count
     }
+    
+
+    var averageForexPrice: Double = 0.017
     
     
     init() {
@@ -52,8 +54,12 @@ class Transactions: ObservableObject {
         items = []
     }
     
-    func addTransaction(title: String, descirption: String, amount: Double, type: String) {
-        let newTransaction = Transaction(id: UUID(), date: Date(), title: title, description: descirption, amount: amount, type: type)
+    func addTransaction(title: String, descirption: String, type: String, forexAmount: Double, homeAmount: Double = 0) {
+        var calulatedHomeAmount: Double = homeAmount
+        if type == "Spend" {
+            calulatedHomeAmount = forexAmount * averageForexPrice
+        }
+        let newTransaction = Transaction(id: UUID(), date: Date(), title: title, description: descirption, type: type, forexAmount: forexAmount, homeAmount: calulatedHomeAmount)
         items.append(newTransaction)
     }
 }
