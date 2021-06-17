@@ -29,16 +29,25 @@ struct AddTransactionView: View {
                 }
                 TextField("Amount", text: $amountString)
                     .keyboardType(.decimalPad)
+                
             }
             .navigationBarTitle("Add Transaction")
-            .navigationBarItems(trailing: Button("Save") {
-                transactions.addTransaction(title: title, descirption: description, amount: Double(amountString)!, type: type)
-                presentationMode.wrappedValue.dismiss()
+            .navigationBarItems(leading: Button(action: {presentationMode.wrappedValue.dismiss()}) {
+                Image(systemName: "xmark")
+},
+                trailing:
+                                    Button(action: addTransaction) {
+                                        Image(systemName: "checkmark")
             })
-//            .alert(isPresented: $invalidAmount, content: {
+            //            .alert(isPresented: $invalidAmount, content: {
 //                Alert(title: Text("Invalid Amount"), message: Text("Please enter a valid intiger."), dismissButton: .default(Text("Dismiss")))
 //            })
         }
+    }
+    
+    func addTransaction() {
+        transactions.addTransaction(title: title, descirption: description, amount: Double(amountString)!, type: type)
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

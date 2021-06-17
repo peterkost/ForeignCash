@@ -32,13 +32,14 @@ class Transactions: ObservableObject {
         }
     }
     
-    var total: Double {
+    var forexTotal: Double {
         var count: Double = 0
         for item in items {
             count += item.amount
         }
         return count
     }
+    
     
     init() {
         if let items = UserDefaults.standard.data(forKey: Transactions.fileKey) {

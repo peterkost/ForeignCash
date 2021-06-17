@@ -14,12 +14,14 @@ struct HomeView: View {
         NavigationView {
             Form {
                 Section(header: Text("Current Balance")) {
-                    Text("\(transactions.total)")
+                    Text("\(transactions.forexTotal, specifier: "%.2f")₽")
+                        .font(.largeTitle)
+                        .frame(maxWidth: .infinity,  alignment: .center)
                 }
                 
                 Section(header: Text("Recent Transactions")) {
                     List {
-                        ForEach(transactions.items) { transaction in
+                        ForEach(transactions.items[0...4]) { transaction in
                             Text("\(transaction.amount)")
                         }
                     }
