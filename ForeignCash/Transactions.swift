@@ -103,4 +103,12 @@ class Transactions: ObservableObject {
         let newTransaction = Transaction(id: UUID(), date: Date(), title: title, description: descirption, type: type, forexAmount: calculatedForexAmount, homeAmount: calulatedHomeAmount)
         items.append(newTransaction)
     }
+    
+    func deleteTransactionWithID(_ id: UUID) {
+        if let target = items.firstIndex(where: { $0.id == id }) {
+            items.remove(at: target)
+        } else {
+            print("traget not found")
+        }
+    }
 }

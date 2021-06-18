@@ -46,7 +46,9 @@ struct TransactionsListView: View {
     }
     
     func removeItems(at offset: IndexSet) {
-        transactions.items.remove(atOffsets: offset)
+        let index = offset[offset.startIndex]
+        let target = transactions.sortedByDate[index]
+        transactions.deleteTransactionWithID(target.id)
     }
 }
 
