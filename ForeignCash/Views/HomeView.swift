@@ -41,9 +41,10 @@ struct HomeView: View {
                 Section(header: Text("ForEx")) {
                     List {
                         if !transactions.averageForexPrice.isNaN{
-                            Text("Your average rate is \(1/transactions.averageForexPrice , specifier: "%.2f")₽/$")
+                            Text("Your average rate is \(1/transactions.averageForexPrice , specifier: "%.2f") ₽/$")
                         }
-                        Text("Current rate: \("TODO")")
+                        
+                        Text("Current rate: \(transactions.liveRate, specifier: "%.2f") ₽/$")
                     }
                 }
             }

@@ -31,6 +31,8 @@ class Transactions: ObservableObject {
         }
     }
     
+    var liveRate: Double = 0
+    
     var forexTotal: Double {
         var count: Double = 0
         for item in items {
@@ -83,6 +85,7 @@ class Transactions: ObservableObject {
     
     
     init() {
+        getLiveRate()
         if let items = UserDefaults.standard.data(forKey: Transactions.fileKey) {
             let decoder = JSONDecoder()
             if let decoded = try? decoder.decode([Transaction].self, from: items) {
@@ -110,5 +113,21 @@ class Transactions: ObservableObject {
         } else {
             print("traget not found")
         }
+    }
+    
+    func getLiveRate() {
+        // Generate Request
+        let url = URL(string: "https://api.exchangerate.host/convert?from=CAD&to=RUB")!
+        let request = URLRequest(url: url)
+
+        // Send Request
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                // Process Responce
+                if let decodedResponse = try? JSONDecoder().decode(jsonResponce.self, from: data) {
+                    self.liveRate = decodedResponse.result
+                }
+            }
+        }.resume()
     }
 }
