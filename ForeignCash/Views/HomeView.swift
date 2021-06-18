@@ -23,13 +23,16 @@ struct HomeView: View {
                             .font(.title2)
                             .frame(maxWidth: .infinity,  alignment: .center)
                     }
-//                    Text("Average price for 100 RUB: &\(transactions.averageForexPrice * 100 , specifier: "%.2f")")
                 }
                 
                 Section(header: Text("Recent Transactions")) {
                     List {
-                        ForEach(transactions.items) { transaction in
-                            Text("\(transaction.forexAmount)")
+                        ForEach(transactions.sortedByDate) { transaction in
+                            HStack {
+                                Text(transaction.title)
+                                Spacer()
+                                Text("\(transaction.forexAmount, specifier: "%.2f")")
+                            }
                         }
                     }
                 }

@@ -47,13 +47,30 @@ class Transactions: ObservableObject {
         return items.sorted(by: { $0.date > $1.date })
     }
     
+    var groupedByDate: [[Transaction]] {
+        var result = [[Transaction]]()
+        guard sortedByDate.count > 0 else {return result}
+        
+        result[0].append(sortedByDate[0])
+        var resultIndex = 0
+        
+        for i in 1..<sortedByDate.count {
+            if result[resultIndex][0].date == sortedByDate[i].date {
+                result[resultIndex].append(sortedByDate[i])
+            } else {
+                resultIndex += 1
+                result.append([sortedByDate[i]])
+            }
+        }
+        return result
+    }
+    
 
     var averageForexPrice: Double {
         var curForexTotal: Double = 0
         var curWeightedTotal: Double = 0
         
         for item in sortedByDate where item.type == "Add" {
-            print(curForexTotal, forexTotal)
             if curForexTotal > forexTotal { break }
             
             let priceForForex = item.homeAmount / item.forexAmount
