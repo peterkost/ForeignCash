@@ -97,7 +97,7 @@ class Transactions: ObservableObject {
         var calulatedHomeAmount: Double = homeAmount
         var calculatedForexAmount: Double = forexAmount
         if type == "Spend" {
-            calulatedHomeAmount = forexAmount * averageForexPrice
+            calulatedHomeAmount = -(forexAmount * averageForexPrice)
             calculatedForexAmount = -calculatedForexAmount
         }
         let newTransaction = Transaction(id: UUID(), date: Date(), title: title, description: descirption, type: type, forexAmount: calculatedForexAmount, homeAmount: calulatedHomeAmount)

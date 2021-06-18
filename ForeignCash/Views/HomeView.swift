@@ -18,10 +18,11 @@ struct HomeView: View {
                         Text("\(transactions.forexTotal, specifier: "%.2f")₽")
                             .font(.largeTitle)
                             .frame(maxWidth: .infinity,  alignment: .center)
-                        
-                        Text("$\(transactions.homeTotal, specifier: "%.2f")")
-                            .font(.title2)
-                            .frame(maxWidth: .infinity,  alignment: .center)
+                        if !transactions.homeTotal.isNaN {
+                            Text("$\(transactions.homeTotal, specifier: "%.2f")")
+                                .font(.title2)
+                                .frame(maxWidth: .infinity,  alignment: .center)
+                        }
                     }
                 }
                 
@@ -39,7 +40,9 @@ struct HomeView: View {
                 
                 Section(header: Text("ForEx")) {
                     List {
-                        Text("Your average rate is \(1/transactions.averageForexPrice , specifier: "%.2f")₽/$")
+                        if !transactions.averageForexPrice.isNaN{
+                            Text("Your average rate is \(1/transactions.averageForexPrice , specifier: "%.2f")₽/$")
+                        }
                         Text("Current rate: \("TODO")")
                     }
                 }
