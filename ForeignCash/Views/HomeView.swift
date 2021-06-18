@@ -14,9 +14,16 @@ struct HomeView: View {
         NavigationView {
             Form {
                 Section(header: Text("Current Balance")) {
-                    Text("\(transactions.forexTotal, specifier: "%.2f")₽")
-                        .font(.largeTitle)
-                        .frame(maxWidth: .infinity,  alignment: .center)
+                    VStack {
+                        Text("\(transactions.forexTotal, specifier: "%.2f")₽")
+                            .font(.largeTitle)
+                            .frame(maxWidth: .infinity,  alignment: .center)
+                        
+                        Text("$\(transactions.homeTotal, specifier: "%.2f")")
+                            .font(.title2)
+                            .frame(maxWidth: .infinity,  alignment: .center)
+                    }
+//                    Text("Average price for 100 RUB: &\(transactions.averageForexPrice * 100 , specifier: "%.2f")")
                 }
                 
                 Section(header: Text("Recent Transactions")) {
@@ -29,12 +36,12 @@ struct HomeView: View {
                 
                 Section(header: Text("ForEx")) {
                     List {
-                        Text("Your average rate: \("TODO")")
+                        Text("Your average rate is \(1/transactions.averageForexPrice , specifier: "%.2f")₽/$")
                         Text("Current rate: \("TODO")")
                     }
                 }
             }
-            .navigationBarTitle("Home")
+            .navigationBarTitle("Ruble 🇷🇺")
         }
     }
 }

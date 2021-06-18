@@ -39,8 +39,30 @@ class Transactions: ObservableObject {
         return count
     }
     
+    var homeTotal: Double {
+        return forexTotal * averageForexPrice
+    }
+    
+    var sortedByDate: [Transaction] {
+        return items.sorted(by: { $0.date > $1.date })
+    }
+    
 
-    var averageForexPrice: Double = 0.017
+    var averageForexPrice: Double {
+        var curForexTotal: Double = 0
+        var curWeightedTotal: Double = 0
+        
+        for item in sortedByDate where item.type == "Add" {
+            print(curForexTotal, forexTotal)
+            if curForexTotal > forexTotal { break }
+            
+            let priceForForex = item.homeAmount / item.forexAmount
+            let weightedPriceForForex = priceForForex * item.forexAmount
+            curForexTotal += item.forexAmount
+            curWeightedTotal += weightedPriceForForex
+        }
+        return curWeightedTotal / curForexTotal
+    }
     
     
     init() {
@@ -56,10 +78,12 @@ class Transactions: ObservableObject {
     
     func addTransaction(title: String, descirption: String, type: String, forexAmount: Double, homeAmount: Double = 0) {
         var calulatedHomeAmount: Double = homeAmount
+        var calculatedForexAmount: Double = forexAmount
         if type == "Spend" {
             calulatedHomeAmount = forexAmount * averageForexPrice
+            calculatedForexAmount = -calculatedForexAmount
         }
-        let newTransaction = Transaction(id: UUID(), date: Date(), title: title, description: descirption, type: type, forexAmount: forexAmount, homeAmount: calulatedHomeAmount)
+        let newTransaction = Transaction(id: UUID(), date: Date(), title: title, description: descirption, type: type, forexAmount: calculatedForexAmount, homeAmount: calulatedHomeAmount)
         items.append(newTransaction)
     }
 }
