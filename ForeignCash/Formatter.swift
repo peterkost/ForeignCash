@@ -20,4 +20,11 @@ struct Formatter {
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
+    
+    func medtDateTime(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
 }

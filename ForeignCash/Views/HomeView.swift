@@ -27,7 +27,7 @@ struct HomeView: View {
                 
                 Section(header: Text("Recent Transactions")) {
                     List {
-                        ForEach(transactions.sortedByDate) { transaction in
+                        ForEach(transactions.sortedByDate.prefix(5)) { transaction in
                             HStack {
                                 Text(transaction.title)
                                 Spacer()

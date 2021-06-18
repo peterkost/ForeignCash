@@ -15,18 +15,20 @@ struct TransactionsListView: View {
         NavigationView {
             List {
                 ForEach(transactions.sortedByDate) { transaction in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(transaction.title)
-                                .font(.headline)
-                            Text(Formatter().shortDateTime(date: transaction.date))
+                    NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(transaction.title)
+                                    .font(.headline)
+                                Text(Formatter().shortDateTime(date: transaction.date))
+                            }
+                            Spacer()
+                            VStack(alignment: .trailing) {
+                                Text("\(transaction.forexAmount, specifier: "%.2f")₽")
+                                Text("$\(transaction.homeAmount, specifier: "%.2f")")
+                            }
+                            .foregroundColor(transaction.forexAmount > 0 ? .green : .red)
                         }
-                        Spacer()
-                        VStack(alignment: .trailing) {
-                            Text("\(transaction.forexAmount, specifier: "%.2f")₽")
-                            Text("$\(transaction.homeAmount, specifier: "%.2f")")
-                        }
-                        .foregroundColor(transaction.forexAmount > 0 ? .green : .red)
                     }
                 }
                 .onDelete(perform: removeItems)
