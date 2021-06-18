@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddTransactionView: View {
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var transactions: Transactions
+    @EnvironmentObject var transactions: CurrencyPair
     
     @State private var title = ""
     @State private var description = ""

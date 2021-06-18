@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TransactionsListView: View {
-    @EnvironmentObject var transactions: Transactions
+    @EnvironmentObject var transactions: CurrencyPair
     @State private var showingAddTransaction = false
     
     var body: some View {

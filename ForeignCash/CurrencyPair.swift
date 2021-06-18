@@ -19,14 +19,14 @@ struct Transaction: Identifiable, Codable {
 }
 
 
-class Transactions: ObservableObject {
+class CurrencyPair: ObservableObject {
     static let fileKey = "transactions"
     
     @Published var items = [Transaction]() {
         didSet {
             let encoder = JSONEncoder()
             if let encoded = try? encoder.encode(items) {
-                UserDefaults.standard.set(encoded, forKey: Transactions.fileKey)
+                UserDefaults.standard.set(encoded, forKey: CurrencyPair.fileKey)
             }
         }
     }
@@ -90,7 +90,7 @@ class Transactions: ObservableObject {
     
     init() {
 //        getLiveRate()
-        if let items = UserDefaults.standard.data(forKey: Transactions.fileKey) {
+        if let items = UserDefaults.standard.data(forKey: CurrencyPair.fileKey) {
             let decoder = JSONDecoder()
             if let decoded = try? decoder.decode([Transaction].self, from: items) {
                 self.items = decoded
@@ -128,7 +128,7 @@ class Transactions: ObservableObject {
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 // Process Responce
-                if let decodedResponse = try? JSONDecoder().decode(jsonResponce.self, from: data) {
+                if let decodedResponse = try? JSONDecoder().decode(liveRateJSON.self, from: data) {
                     self.liveRate = decodedResponse.result
                 }
             }

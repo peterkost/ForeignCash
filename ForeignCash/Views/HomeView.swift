@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var transactions: Transactions
+    @EnvironmentObject var transactions: CurrencyPair
     @State private var showingActionSheet = false
     @State private var showingNewCurrency = false
 
