@@ -33,6 +33,10 @@ class Transactions: ObservableObject {
     
     var liveRate: Double = 0
     
+    var rateChangePercenate: Double {
+        ((liveRate - (1/averageForexPrice)) / (1/averageForexPrice)) * 100
+    }
+    
     var forexTotal: Double {
         var count: Double = 0
         for item in items {

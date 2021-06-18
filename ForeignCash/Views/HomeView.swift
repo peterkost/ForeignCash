@@ -19,7 +19,7 @@ struct HomeView: View {
                             .font(.largeTitle)
                             .frame(maxWidth: .infinity,  alignment: .center)
                         if !transactions.homeTotal.isNaN {
-                            Text("$\(transactions.homeTotal, specifier: "%.2f")")
+                            Text("$\(transactions.homeTotal, specifier: "%.2f") (\(1/transactions.averageForexPrice , specifier: "%.2f") ₽/$)")
                                 .font(.title2)
                                 .frame(maxWidth: .infinity,  alignment: .center)
                         }
@@ -30,22 +30,28 @@ struct HomeView: View {
                     List {
                         ForEach(transactions.sortedByDate.prefix(5)) { transaction in
                             HStack {
-                                Text(transaction.title)
+                                VStack(alignment: .leading) {
+                                    Text(transaction.title)
+                                    Text(Formatter().shortDate(date: transaction.date))
+                                }
+
                                 Spacer()
                                 Text("\(transaction.forexAmount, specifier: "%.2f")")
+                                    .foregroundColor(transaction.forexAmount > 0 ? .green : .red)
                             }
                         }
                     }
                 }
                 
-                Section(header: Text("ForEx")) {
-                    List {
-                        if !transactions.averageForexPrice.isNaN{
-                            Text("Your average rate is \(1/transactions.averageForexPrice , specifier: "%.2f") ₽/$")
-                        }
-                        
-                        Text("Current rate: \(transactions.liveRate, specifier: "%.2f") ₽/$")
-                    }
+                Section(header: Text("Live Rate")) {
+                        HStack {
+                            Spacer()
+                            Text("\(transactions.liveRate, specifier: "%.2f") ₽/$")
+                            Text("\(transactions.rateChangePercenate > 0 ? "+" : "")\(transactions.rateChangePercenate, specifier: "%.2f")%")
+                                .foregroundColor(transactions.rateChangePercenate > 0 ? .green : .red)
+                            Spacer()
+                            }
+                            .font(.title3)
                 }
             }
             .navigationBarTitle("Ruble 🇷🇺")
