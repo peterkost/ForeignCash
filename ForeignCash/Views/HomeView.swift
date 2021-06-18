@@ -9,6 +9,9 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var transactions: Transactions
+    @State private var showingActionSheet = false
+    @State private var showingNewCurrency = false
+
     
     var body: some View {
         NavigationView {
@@ -55,6 +58,21 @@ struct HomeView: View {
                 }
             }
             .navigationBarTitle("Ruble 🇷🇺")
+            .navigationBarItems(trailing: Button("Switch Currency") {
+                showingActionSheet = true
+            })
+            .actionSheet(isPresented: $showingActionSheet) {
+                ActionSheet(title: Text("Pick a pairing."), buttons: [
+                    .default(Text("CAD to RUB")) { print("cad to rub") },
+                    .default(Text("CAD to USD")) { print("cad to usd") },
+                    .default(Text("New Pair")) { showingNewCurrency = true },
+                    .cancel()
+                ])
+            }
+            .sheet(isPresented: $showingNewCurrency, content: {
+                NewCurrencyView()
+//                    .environmentObject(transactions)
+            })
         }
     }
 }

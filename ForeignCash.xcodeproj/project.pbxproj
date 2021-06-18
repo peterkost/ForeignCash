@@ -18,6 +18,7 @@
 		90B83477267C8D2100B7E448 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B83476267C8D2100B7E448 /* Formatter.swift */; };
 		90B83479267C9F3700B7E448 /* TransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B83478267C9F3700B7E448 /* TransactionDetailsView.swift */; };
 		90B8347D267CB1A500B7E448 /* jsonResponce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8347C267CB1A500B7E448 /* jsonResponce.swift */; };
+		90B8347F267CC3F300B7E448 /* NewCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8347E267CC3F300B7E448 /* NewCurrencyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		90B83476267C8D2100B7E448 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		90B83478267C9F3700B7E448 /* TransactionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsView.swift; sourceTree = "<group>"; };
 		90B8347C267CB1A500B7E448 /* jsonResponce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonResponce.swift; sourceTree = "<group>"; };
+		90B8347E267CC3F300B7E448 /* NewCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCurrencyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				90B83478267C9F3700B7E448 /* TransactionDetailsView.swift */,
 				900B4B8F267B59C000C085FB /* TransactionsListView.swift */,
 				900B4B91267B5C7500C085FB /* HomeView.swift */,
+				90B8347E267CC3F300B7E448 /* NewCurrencyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 				900B4B8E267B574100C085FB /* Transactions.swift in Sources */,
 				900B4B90267B59C000C085FB /* TransactionsListView.swift in Sources */,
 				900B4B7E267B52ED00C085FB /* ContentView.swift in Sources */,
+				90B8347F267CC3F300B7E448 /* NewCurrencyView.swift in Sources */,
 				90B83477267C8D2100B7E448 /* Formatter.swift in Sources */,
 				900B4B94267B61DF00C085FB /* AddTransactionView.swift in Sources */,
 				900B4B92267B5C7500C085FB /* HomeView.swift in Sources */,

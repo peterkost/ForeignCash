@@ -31,7 +31,7 @@ class Transactions: ObservableObject {
         }
     }
     
-    var liveRate: Double = 0
+    var liveRate: Double = 30
     
     var rateChangePercenate: Double {
         ((liveRate - (1/averageForexPrice)) / (1/averageForexPrice)) * 100
@@ -89,7 +89,7 @@ class Transactions: ObservableObject {
     
     
     init() {
-        getLiveRate()
+//        getLiveRate()
         if let items = UserDefaults.standard.data(forKey: Transactions.fileKey) {
             let decoder = JSONDecoder()
             if let decoded = try? decoder.decode([Transaction].self, from: items) {
