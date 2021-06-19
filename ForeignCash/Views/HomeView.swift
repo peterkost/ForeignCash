@@ -16,9 +16,6 @@ struct HomeView: View {
         if currencyPairs.selectedPair == nil {
             NavigationView {
                 VStack {
-                    ForEach(0..<currencyPairs.currencyPairs.count, id: \.self) { i in
-                        Text(currencyPairs.currencyPairs[i].id)
-                    }
                     Button("Add New Currency") {
                         showingNewCurrency = true
                     }

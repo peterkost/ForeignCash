@@ -19,21 +19,40 @@ struct Transaction: Identifiable, Codable {
 }
 
 
-class CurrencyPair: ObservableObject{
+class CurrencyPair: ObservableObject, Codable {
+    // Codable conformance
+    enum CodingKeys: CodingKey {
+        case from, to, id, items, liveRate
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(from, forKey: .from)
+        try container.encode(to, forKey: .to)
+        try container.encode(items, forKey: .items)
+        try container.encode(id, forKey: .id)
+        try container.encode(liveRate, forKey: .liveRate)
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        from = try container.decode(String.self, forKey: .from)
+        to = try container.decode(String.self, forKey: .to)
+        id = try container.decode(String.self, forKey: .id)
+        items = try container.decode([Transaction].self, forKey: .items)
+        liveRate = try container.decode(Double.self, forKey: .liveRate)
+    }
+    
+    
     let from: String
     let to: String
     let id: String
     
-    static let fileKey = "transactions"
-    
-    @Published var items = [Transaction]()
-    {
+    @Published var items = [Transaction]() {
         didSet {
-            print("new item added")
-//            let encoder = JSONEncoder()
-//            if let encoded = try? encoder.encode(items) {
-//                UserDefaults.standard.set(encoded, forKey: CurrencyPair.fileKey)
-//            }
+            print("pair updated")
         }
     }
     
@@ -96,16 +115,6 @@ class CurrencyPair: ObservableObject{
     
     init(from: String, to: String) {
 //        getLiveRate()
-        
-//        if let items = UserDefaults.standard.data(forKey: CurrencyPair.fileKey) {
-//            let decoder = JSONDecoder()
-//            if let decoded = try? decoder.decode([Transaction].self, from: items) {
-//                self.items = decoded
-//                return
-//            }
-//        }
-//        items = []
-        
         self.from = from
         self.to = to
         self.id = "\(from)-\(to)"
@@ -146,6 +155,4 @@ class CurrencyPair: ObservableObject{
             }
         }.resume()
     }
-    
-    
 }

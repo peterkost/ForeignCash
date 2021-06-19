@@ -8,8 +8,16 @@
 import Foundation
 
 class CurrencyPairs: ObservableObject {
+    static let fileKey = "CurrencyPairs"
     var availableCurrencies = [Symbol]()
-    @Published var currencyPairs = [CurrencyPair]()
+    @Published var currencyPairs = [CurrencyPair]() {
+        didSet {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(currencyPairs) {
+                UserDefaults.standard.set(encoded, forKey: CurrencyPairs.fileKey)
+            }
+        }
+    }
     
     var selectedPairID: String?
     
@@ -30,6 +38,23 @@ class CurrencyPairs: ObservableObject {
     
     init() {
         getAvailablePairs()
+        if let items = UserDefaults.standard.data(forKey: CurrencyPairs.fileKey) {
+            let decoder = JSONDecoder()
+//            if let decoded = try? decoder.decode([CurrencyPair].self, from: items) {
+//                currencyPairs = decoded
+//                return
+//            }
+            do {
+                let decoded = try decoder.decode([CurrencyPair].self, from: items)
+                currencyPairs = decoded
+                selectedPairID = currencyPairs[0].id
+                print(decoded)
+                return
+            } catch {
+            print(error)
+            }
+        }
+//        currencyPairs = []
     }
     
     func getAvailablePairs() {
