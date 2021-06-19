@@ -48,7 +48,6 @@ class CurrencyPairs: ObservableObject {
                 let decoded = try decoder.decode([CurrencyPair].self, from: items)
                 currencyPairs = decoded
                 selectedPairID = currencyPairs[0].id
-                print(decoded)
                 return
             } catch {
             print(error)
@@ -81,5 +80,16 @@ class CurrencyPairs: ObservableObject {
     
     func selectPair(id: String) {
         selectedPairID = id
+    }
+    
+    func save() {
+        let encoder = JSONEncoder()
+        do {
+            let encoded = try encoder.encode(currencyPairs)
+            UserDefaults.standard.set(encoded, forKey: CurrencyPairs.fileKey)
+        
+        } catch {
+        print(error)
+        }
     }
 }

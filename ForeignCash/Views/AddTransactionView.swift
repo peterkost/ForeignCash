@@ -73,7 +73,9 @@ struct AddTransactionView: View {
                 return
             }
             currencyPairs.objectWillChange.send()
+            
             currencyPairs.selectedPair!.addTransaction(title: title, descirption: description, type: type, forexAmount: forexAmount, homeAmount: homeAmount)
+            currencyPairs.save()
             presentationMode.wrappedValue.dismiss()
             return
         }
@@ -81,6 +83,7 @@ struct AddTransactionView: View {
 //        currencyPairs.selectedPair!.addTransaction(title: title, descirption: description, type: type, forexAmount: forexAmount)
         currencyPairs.objectWillChange.send()
         currencyPairs.selectedPair!.addTransaction(title: title, descirption: description, type: type, forexAmount: forexAmount)
+        currencyPairs.save()
         presentationMode.wrappedValue.dismiss()
     }
 }
