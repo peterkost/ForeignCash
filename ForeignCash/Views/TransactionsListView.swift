@@ -25,8 +25,8 @@ struct TransactionsListView: View {
                             }
                             Spacer()
                             VStack(alignment: .trailing) {
-                                Text("\(transaction.forexAmount, specifier: "%.2f")₽")
-                                Text("$\(transaction.homeAmount, specifier: "%.2f")")
+                                Text("\(transaction.forexAmount, specifier: "%.2f") \(currencyPairs.selectedPair!.to)")
+                                Text("\(transaction.homeAmount, specifier: "%.2f") \(currencyPairs.selectedPair!.from)")
                             }
                             .foregroundColor(transaction.forexAmount > 0 ? .green : .red)
                         }

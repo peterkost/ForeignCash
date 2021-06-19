@@ -23,6 +23,7 @@ class CurrencyPairs: ObservableObject {
     
     var selectedPair: CurrencyPair? {
         for pair in currencyPairs where pair.id == selectedPairID {
+            pair.getLiveRate()
             return pair
         }
         return nil
@@ -92,4 +93,5 @@ class CurrencyPairs: ObservableObject {
         print(error)
         }
     }
+    
 }

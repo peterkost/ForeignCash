@@ -17,11 +17,11 @@ struct HomeWithTransactionsView: View {
             Form {
                 Section(header: Text("Current Balance")) {
                     VStack {
-                        Text("\( currencyPairs.selectedPair!.forexTotal, specifier: "%.2f")₽")
+                        Text("\( currencyPairs.selectedPair!.forexTotal, specifier: "%.2f") \(currencyPairs.selectedPair!.to)")
                             .font(.largeTitle)
                             .frame(maxWidth: .infinity,  alignment: .center)
                         if !currencyPairs.selectedPair!.homeTotal.isNaN {
-                            Text("$\(currencyPairs.selectedPair!.homeTotal, specifier: "%.2f") (\(1/currencyPairs.selectedPair!.averageForexPrice , specifier: "%.2f") ₽/$)")
+                            Text("$\(currencyPairs.selectedPair!.homeTotal, specifier: "%.2f") (\(1/currencyPairs.selectedPair!.averageForexPrice , specifier: "%.2f") \(currencyPairs.selectedPair!.to)/\(currencyPairs.selectedPair!.from))")
                                 .font(.title2)
                                 .frame(maxWidth: .infinity,  alignment: .center)
                         }
@@ -48,7 +48,7 @@ struct HomeWithTransactionsView: View {
                 Section(header: Text("Live Rate")) {
                         HStack {
                             Spacer()
-                            Text("\( currencyPairs.selectedPair!.liveRate, specifier: "%.2f") ₽/$")
+                            Text("\( currencyPairs.selectedPair!.liveRate, specifier: "%.2f") \(currencyPairs.selectedPair!.to)/\(currencyPairs.selectedPair!.from)")
                             Text("\( currencyPairs.selectedPair!.rateChangePercenate > 0 ? "+" : "")\( currencyPairs.selectedPair!.rateChangePercenate, specifier: "%.2f")%")
                                 .foregroundColor( currencyPairs.selectedPair!.rateChangePercenate > 0 ? .green : .red)
                             Spacer()

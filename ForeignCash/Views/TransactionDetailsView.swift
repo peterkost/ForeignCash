@@ -14,11 +14,11 @@ struct TransactionDetailsView: View {
         Form {
             Section {
                 VStack {
-                    Text("\(transaction.forexAmount, specifier: "%.2f")₽")
+                    Text("\(transaction.forexAmount, specifier: "%.2f")")
                         .font(.largeTitle)
                         .frame(maxWidth: .infinity,  alignment: .center)
                     
-                    Text("$\(transaction.homeAmount, specifier: "%.2f")")
+                    Text("\(transaction.homeAmount, specifier: "%.2f")")
                         .font(.title2)
                         .frame(maxWidth: .infinity,  alignment: .center)
                 }

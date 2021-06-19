@@ -110,7 +110,6 @@ class CurrencyPair: ObservableObject, Codable {
     
     
     init(from: String, to: String) {
-//        getLiveRate()
         self.from = from
         self.to = to
         self.id = "\(from)-\(to)"
@@ -138,7 +137,7 @@ class CurrencyPair: ObservableObject, Codable {
     
     func getLiveRate() {
         // Generate Request
-        let url = URL(string: "https://api.exchangerate.host/convert?from=CAD&to=RUB")!
+        let url = URL(string: "https://api.exchangerate.host/convert?from=\(from)&to=\(to)")!
         let request = URLRequest(url: url)
 
         // Send Request

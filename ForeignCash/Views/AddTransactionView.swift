@@ -37,11 +37,11 @@ struct AddTransactionView: View {
                 TextField("Description", text: $description)
                 
                 if type == "Add" {
-                    TextField("CAD spent", text: $homeAmountString)
+                    TextField("\(currencyPairs.selectedPair!.from) spent", text: $homeAmountString)
                         .keyboardType(.decimalPad)
                 }
                 
-                TextField(type == "Add" ? "RUB recieved" : "RUB spent", text: $forexAmountString)
+                TextField(type == "Add" ? "\(currencyPairs.selectedPair!.to) recieved" : "\(currencyPairs.selectedPair!.to) spent", text: $forexAmountString)
                     .keyboardType(.decimalPad)
 
             }
@@ -61,14 +61,14 @@ struct AddTransactionView: View {
     
     func addTransaction() {
         guard let forexAmount = Double(forexAmountString) else {
-            alertMessage = "Please enter a valid RUB amount."
+            alertMessage = "Please enter a valid \(currencyPairs.selectedPair!.to) amount."
             invalidAmount = true
             return
         }
         
         if type == "Add" {
             guard let homeAmount = Double(homeAmountString) else {
-                alertMessage = "Please enter a valid CAD amount."
+                alertMessage = "Please enter a valid \(currencyPairs.selectedPair!.from) amount."
                 invalidAmount = true
                 return
             }
@@ -88,8 +88,8 @@ struct AddTransactionView: View {
     }
 }
 
-//struct AddTransactionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddTransactionView()
-//    }
-//}
+struct AddTransactionView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddTransactionView()
+    }
+}
