@@ -10,6 +10,7 @@ import SwiftUI
 struct TransactionsListView: View {
     @EnvironmentObject var currencyPairs: CurrencyPairs
     @State private var showingAddTransaction = false
+    @State private var reload = true
     
     var body: some View {
         NavigationView {

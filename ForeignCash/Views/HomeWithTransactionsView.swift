@@ -74,7 +74,12 @@ struct HomeWithTransactionsView: View {
         var res = [Alert.Button]()
         
         for id in currencyPairs.currencyPairsIDs {
-            res.append(Alert.Button.default(Text(id)) { currencyPairs.selectPair(id: id) })
+            res.append(Alert.Button.default(Text(id)) {
+                currencyPairs.objectWillChange.send()
+                        currencyPairs.selectPair(id: id)
+                    
+                
+            })
         }
         
         res.append(Alert.Button.default(Text("New Pair")) { showingNewCurrency = true })

@@ -50,11 +50,7 @@ class CurrencyPair: ObservableObject, Codable {
     let to: String
     let id: String
     
-    @Published var items = [Transaction]() {
-        didSet {
-            print("pair updated")
-        }
-    }
+    @Published var items = [Transaction]()
     
     var liveRate: Double = 30
     
