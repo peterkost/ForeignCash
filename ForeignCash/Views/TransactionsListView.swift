@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct TransactionsListView: View {
-    @EnvironmentObject var transactions: CurrencyPair
+    @EnvironmentObject var currencyPairs: CurrencyPairs
     @State private var showingAddTransaction = false
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(transactions.sortedByDate) { transaction in
+                ForEach(currencyPairs.selectedPair!.sortedByDate) { transaction in
                     NavigationLink(destination: TransactionDetailsView(transaction: transaction)) {
                         HStack {
                             VStack(alignment: .leading) {
@@ -40,15 +40,15 @@ struct TransactionsListView: View {
                     Image(systemName: "plus") })
             .sheet(isPresented: $showingAddTransaction, content: {
                 AddTransactionView()
-                    .environmentObject(transactions)
+                    .environmentObject(currencyPairs)
             })
         }
     }
     
     func removeItems(at offset: IndexSet) {
         let index = offset[offset.startIndex]
-        let target = transactions.sortedByDate[index]
-        transactions.deleteTransactionWithID(target.id)
+        let target = currencyPairs.selectedPair!.sortedByDate[index]
+        currencyPairs.selectedPair!.deleteTransactionWithID(target.id)
     }
 }
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    var transactions = CurrencyPair()
+    var currencyPairs = CurrencyPairs()
     
     var body: some View {
         TabView {
@@ -23,7 +23,7 @@ struct ContentView: View {
                     Text("Transactions")
                 }
         }
-        .environmentObject(transactions)
+        .environmentObject(currencyPairs)
     }
 }
 

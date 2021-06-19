@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddTransactionView: View {
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var transactions: CurrencyPair
+    @EnvironmentObject var currencyPairs: CurrencyPairs
     
     @State private var title = ""
     @State private var description = ""
@@ -72,18 +72,19 @@ struct AddTransactionView: View {
                 invalidAmount = true
                 return
             }
-            transactions.addTransaction(title: title, descirption: description, type: type, forexAmount: forexAmount, homeAmount: homeAmount)
+            currencyPairs.selectedPair!.addTransaction(title: title, descirption: description, type: type, forexAmount: forexAmount, homeAmount: homeAmount)
             presentationMode.wrappedValue.dismiss()
             return
         }
         
-        transactions.addTransaction(title: title, descirption: description, type: type, forexAmount: forexAmount)
+//        currencyPairs.selectedPair!.addTransaction(title: title, descirption: description, type: type, forexAmount: forexAmount)
+        currencyPairs.selectedPair!.addTransaction(title: title, descirption: description, type: type, forexAmount: forexAmount)
         presentationMode.wrappedValue.dismiss()
     }
 }
 
-struct AddTransactionView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddTransactionView()
-    }
-}
+//struct AddTransactionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddTransactionView()
+//    }
+//}

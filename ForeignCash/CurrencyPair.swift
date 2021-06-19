@@ -19,15 +19,21 @@ struct Transaction: Identifiable, Codable {
 }
 
 
-class CurrencyPair: ObservableObject {
+class CurrencyPair: ObservableObject{
+    let from: String
+    let to: String
+    let id: String
+    
     static let fileKey = "transactions"
     
-    @Published var items = [Transaction]() {
+    @Published var items = [Transaction]()
+    {
         didSet {
-            let encoder = JSONEncoder()
-            if let encoded = try? encoder.encode(items) {
-                UserDefaults.standard.set(encoded, forKey: CurrencyPair.fileKey)
-            }
+            print("new item added")
+//            let encoder = JSONEncoder()
+//            if let encoded = try? encoder.encode(items) {
+//                UserDefaults.standard.set(encoded, forKey: CurrencyPair.fileKey)
+//            }
         }
     }
     
@@ -88,16 +94,22 @@ class CurrencyPair: ObservableObject {
     }
     
     
-    init() {
+    init(from: String, to: String) {
 //        getLiveRate()
-        if let items = UserDefaults.standard.data(forKey: CurrencyPair.fileKey) {
-            let decoder = JSONDecoder()
-            if let decoded = try? decoder.decode([Transaction].self, from: items) {
-                self.items = decoded
-                return
-            }
-        }
-        items = []
+        
+//        if let items = UserDefaults.standard.data(forKey: CurrencyPair.fileKey) {
+//            let decoder = JSONDecoder()
+//            if let decoded = try? decoder.decode([Transaction].self, from: items) {
+//                self.items = decoded
+//                return
+//            }
+//        }
+//        items = []
+        
+        self.from = from
+        self.to = to
+        self.id = "\(from)-\(to)"
+        
     }
     
     func addTransaction(title: String, descirption: String, type: String, forexAmount: Double, homeAmount: Double = 0) {
@@ -134,4 +146,6 @@ class CurrencyPair: ObservableObject {
             }
         }.resume()
     }
+    
+    
 }

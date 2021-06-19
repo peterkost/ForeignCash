@@ -9,12 +9,11 @@ import SwiftUI
 
 struct NewCurrencyView: View {
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var currencyPairs: CurrencyPairs
     @State private var availableCurrencies = [Symbol]()
     
-    
-//    let availableCurrencies = ["AUD", "CAD", "RUB", "USD"]
-    @State private var fromCurrency = "AUD"
-    @State private var toCurrency = "CAD"
+    @State private var fromCurrency = "CAD"
+    @State private var toCurrency = "USD"
     
     var body: some View {
         NavigationView {
@@ -39,31 +38,18 @@ struct NewCurrencyView: View {
             }
         }
         .navigationBarTitle("New Currency Pairing")
-        .navigationBarItems(leading: Button(action: {presentationMode.wrappedValue.dismiss()}) {
+        .navigationBarItems(leading: Button(action: { presentationMode.wrappedValue.dismiss() }) {
             Image(systemName: "xmark")
         },
         trailing:
-            Button(action: {print("xd")}) {
+            Button(action: {
+                    currencyPairs.addPair(from: fromCurrency, to: toCurrency)
+                    presentationMode.wrappedValue.dismiss()
+            }) {
                 Image(systemName: "checkmark")
             })
         }
-        .onAppear(perform: getAvailablePairs)
-    }
-    
-    func getAvailablePairs() {
-        // Generate Request
-        let url = URL(string: "https://api.exchangerate.host/symbols")!
-        let request = URLRequest(url: url)
-
-        // Send Request
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                // Process Responce
-                if let decodedResponse = try? JSONDecoder().decode(availableCurrenciesJSON.self, from: data) {
-                    self.availableCurrencies = Array(decodedResponse.symbols.values).sorted()
-                }
-            }
-        }.resume()
+        .onAppear(perform: { availableCurrencies = currencyPairs.availableCurrencies })
     }
 }
 
