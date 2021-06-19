@@ -72,12 +72,14 @@ struct AddTransactionView: View {
                 invalidAmount = true
                 return
             }
+            currencyPairs.objectWillChange.send()
             currencyPairs.selectedPair!.addTransaction(title: title, descirption: description, type: type, forexAmount: forexAmount, homeAmount: homeAmount)
             presentationMode.wrappedValue.dismiss()
             return
         }
         
 //        currencyPairs.selectedPair!.addTransaction(title: title, descirption: description, type: type, forexAmount: forexAmount)
+        currencyPairs.objectWillChange.send()
         currencyPairs.selectedPair!.addTransaction(title: title, descirption: description, type: type, forexAmount: forexAmount)
         presentationMode.wrappedValue.dismiss()
     }

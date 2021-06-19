@@ -48,6 +48,7 @@ struct TransactionsListView: View {
     func removeItems(at offset: IndexSet) {
         let index = offset[offset.startIndex]
         let target = currencyPairs.selectedPair!.sortedByDate[index]
+        currencyPairs.objectWillChange.send()
         currencyPairs.selectedPair!.deleteTransactionWithID(target.id)
     }
 }
