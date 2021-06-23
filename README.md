@@ -1,6 +1,6 @@
+[![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)][ios-url]
 [![Swift Version][swift-image]][swift-url]
 [![License][license-image]][license-url]
-[![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)][ios-url]
 
 # ForeignCash
 
